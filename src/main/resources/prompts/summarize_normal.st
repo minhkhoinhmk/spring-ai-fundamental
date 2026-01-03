@@ -1,0 +1,1 @@
+Tóm tắt các điểm chính một cách cô đọng.

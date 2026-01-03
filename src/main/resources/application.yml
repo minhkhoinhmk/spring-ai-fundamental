@@ -1,0 +1,70 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/agenticdb
+    username: agentic
+    password: agentic123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  ai:
+    google:
+      genai:
+        api-key: "${SPRING_AI_GOOGLE_GENAI_API_KEY:YOUR_API_KEY}"
+        chat:
+          options:
+            model: gemini-2.5-flash
+            temperature: 1
+        embedding:
+          text:
+            options:
+              model: text-embedding-004
+          api-key: "${SPRING_AI_GOOGLE_GENAI_API_KEY:YOUR_API_KEY}"
+    openai:
+      api-key: "${SPRING_AI_OPENAI_API_KEY:YOUR_API_KEY}"
+      chat:
+        options:
+          model: gpt-5-nano
+          temperature: 1
+      embedding:
+        options:
+          model: text-embedding-ada-002
+    vectorstore:
+      pgvector:
+        schema-name: public
+
+agentic_example:
+  application:
+    rag:
+      top-k: 10
+
+google:
+  search:
+    api-key: "${GOOGLE_SEARCH_API_KEY:YOUR_API_KEY}"
+    cx: "${GOOGLE_SEARCH_CX:c711cf370b1c14533}"
+
+newsapi:
+  api-key: "${NEWS_API_KEY:YOUR_API_KEY}"
+
+exchange:
+  rate:
+    api-key: "${EXCHANGE_RATE_API_KEY:YOUR_API_KEY}"
+
+app:
+  ai:
+    system-prompt-path: "prompts/system.st"
+  conversation:
+    top-k: 6
+
+  extract:
+    timeout-ms: 5000
+    user-agent: "Mozilla/5.0 (compatible; AgenticExample/1.0)"
+    max-chars: 300

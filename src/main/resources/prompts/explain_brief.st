@@ -1,0 +1,1 @@
+Trả lời ngắn gọn, không quá 2-3 câu.

@@ -1,0 +1,267 @@
+{
+  "groups": [
+    {
+      "name": "spring.ai.vertex.ai.embedding",
+      "type": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiEmbeddingConnectionProperties",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiEmbeddingConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.multimodal",
+      "type": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiMultimodalEmbeddingProperties",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiMultimodalEmbeddingProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.multimodal.options",
+      "type": "org.springframework.ai.vertexai.embedding.multimodal.VertexAiMultimodalEmbeddingOptions",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiMultimodalEmbeddingProperties",
+      "sourceMethod": "getOptions()"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.text",
+      "type": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiTextEmbeddingProperties",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiTextEmbeddingProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.text.options",
+      "type": "org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptions",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiTextEmbeddingProperties",
+      "sourceMethod": "getOptions()"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini",
+      "type": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat",
+      "type": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiChatProperties",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiChatProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options",
+      "type": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiChatProperties",
+      "sourceMethod": "getOptions()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.ai.vertex.ai.embedding.api-endpoint",
+      "type": "java.lang.String",
+      "description": "Vertex AI Gemini API endpoint.",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiEmbeddingConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.credentials-uri",
+      "type": "org.springframework.core.io.Resource",
+      "description": "URI to Vertex AI Gemini credentials (optional)",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiEmbeddingConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.location",
+      "type": "java.lang.String",
+      "description": "Vertex AI Gemini location.",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiEmbeddingConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.multimodal.options.dimensions",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.embedding.multimodal.VertexAiMultimodalEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.multimodal.options.model",
+      "type": "java.lang.String",
+      "sourceType": "org.springframework.ai.vertexai.embedding.multimodal.VertexAiMultimodalEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.multimodal.options.video-end-offset-sec",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.embedding.multimodal.VertexAiMultimodalEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.multimodal.options.video-interval-sec",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.embedding.multimodal.VertexAiMultimodalEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.multimodal.options.video-start-offset-sec",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.embedding.multimodal.VertexAiMultimodalEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.project-id",
+      "type": "java.lang.String",
+      "description": "Vertex AI Gemini project ID.",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.embedding.VertexAiEmbeddingConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.text.options.auto-truncate",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.text.options.dimensions",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.text.options.model",
+      "type": "java.lang.String",
+      "sourceType": "org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.text.options.task-type",
+      "type": "org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptions$TaskType",
+      "sourceType": "org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.embedding.text.options.title",
+      "type": "java.lang.String",
+      "sourceType": "org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.api-endpoint",
+      "type": "java.lang.String",
+      "description": "Vertex AI Gemini API endpoint.",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.candidate-count",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.frequency-penalty",
+      "type": "java.lang.Double",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.google-search-retrieval",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.internal-tool-execution-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.logprobs",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.max-output-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.max-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.model",
+      "type": "java.lang.String",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.output-schema",
+      "type": "java.lang.String",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.presence-penalty",
+      "type": "java.lang.Double",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.response-logprobs",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.response-mime-type",
+      "type": "java.lang.String",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.response-schema",
+      "type": "java.lang.String",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.safety-settings",
+      "type": "java.util.List<org.springframework.ai.vertexai.gemini.common.VertexAiGeminiSafetySetting>",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.stop-sequences",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.temperature",
+      "type": "java.lang.Double",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.tool-callbacks",
+      "type": "java.util.List<org.springframework.ai.tool.ToolCallback>",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.tool-context",
+      "type": "java.util.Map<java.lang.String,java.lang.Object>",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.tool-names",
+      "type": "java.util.Set<java.lang.String>",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.chat.options.top-p",
+      "type": "java.lang.Double",
+      "sourceType": "org.springframework.ai.vertexai.gemini.VertexAiGeminiChatOptions"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.credentials-uri",
+      "type": "org.springframework.core.io.Resource",
+      "description": "URI to Vertex AI Gemini credentials (optional)",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.location",
+      "type": "java.lang.String",
+      "description": "Vertex AI Gemini location.",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.project-id",
+      "type": "java.lang.String",
+      "description": "Vertex AI Gemini project ID.",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.scopes",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties"
+    },
+    {
+      "name": "spring.ai.vertex.ai.gemini.transport",
+      "type": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties$Transport",
+      "sourceType": "org.springframework.ai.model.vertexai.autoconfigure.gemini.VertexAiGeminiConnectionProperties",
+      "defaultValue": "grpc"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

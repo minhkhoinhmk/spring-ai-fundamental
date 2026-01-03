@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  postgres:
+    image: pgvector/pgvector:pg15
+    container_name: agentic-pgvector
+    environment:
+      POSTGRES_DB: agenticdb
+      POSTGRES_USER: agentic
+      POSTGRES_PASSWORD: agentic123
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U agentic" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+
+volumes:
+  pgdata:
+
+# Giải thích:
+# - Sử dụng image postgres chính thức, enable extension pgvector bằng init script
+# - Tạo volume pgdata để lưu trữ dữ liệu bền vững
+# - Đảm bảo port 5432 không bị trùng trên máy bạn
