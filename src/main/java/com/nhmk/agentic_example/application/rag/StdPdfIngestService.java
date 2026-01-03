@@ -1,6 +1,6 @@
 package com.nhmk.agentic_example.application.rag;
 
-import com.nhmk.agentic_example.domain.rag.DocumentChunkRepository;
+import com.nhmk.agentic_example.domain.repository.DocumentChunkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.document.Document;
 import org.springframework.stereotype.Service;

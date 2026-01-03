@@ -2,7 +2,7 @@ package com.nhmk.agentic_example.application.chatbot;
 
 import com.nhmk.agentic_example.domain.chatbot.InstructionBuilder;
 import com.nhmk.agentic_example.domain.chatbot.InstructionContext;
-import com.nhmk.agentic_example.domain.rag.DocumentChunkRepository;
+import com.nhmk.agentic_example.domain.repository.DocumentChunkRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;

@@ -1,6 +1,6 @@
 package com.nhmk.agentic_example.infrastructure.vector;
 
-import com.nhmk.agentic_example.domain.rag.DocumentChunkRepository;
+import com.nhmk.agentic_example.domain.repository.DocumentChunkRepository;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
