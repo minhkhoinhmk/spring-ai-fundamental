@@ -1,7 +1,7 @@
 package com.nhmk.agentic_example.infrastructure.rest;
 
 import com.nhmk.agentic_example.application.rag.StdPdfIngestService;
-import com.nhmk.agentic_example.infrastructure.pdf.PdfSplitter;
+import com.nhmk.agentic_example.infrastructure.pdf.DocumentSplitter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +18,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PdfIngestController {
     private final StdPdfIngestService stdPdfIngestService;
-    private final PdfSplitter pdfSplitter;
+    private final DocumentSplitter documentSplitter;
 
     @PostMapping
-    public ResponseEntity<String> ingestPdf(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> ingestDocument(@RequestParam("file") MultipartFile file) throws IOException {
         String documentId = file.getOriginalFilename();
-        List<String> chunks = pdfSplitter.split(file.getInputStream());
+        List<String> chunks = documentSplitter.split(file.getInputStream());
         stdPdfIngestService.ingest(documentId, chunks);
         return ResponseEntity.ok("Ingested " + documentId);
     }

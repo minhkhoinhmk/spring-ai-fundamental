@@ -2,18 +2,13 @@ package com.nhmk.agentic_example.application.chatbot;
 
 import com.nhmk.agentic_example.domain.chatbot.InstructionBuilder;
 import com.nhmk.agentic_example.domain.chatbot.InstructionContext;
-import com.nhmk.agentic_example.domain.repository.DocumentChunkRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.document.Document;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -21,22 +16,16 @@ public class StdChatService implements ChatService {
     private final ChatClient openAIChatClient;
     private final ChatClient googleAIChatClient;
     private final InstructionBuilder instructionBuilder;
-    private final DocumentChunkRepository documentChunkRepository;
     private final String systemPrompt;
-    private final int topK;
 
     public StdChatService(@Qualifier("openAiChatClient") ChatClient openAIChatClient,
                           @Qualifier("geminiChatClient") ChatClient googleAIChatClient,
                           InstructionBuilder instructionBuilder,
-                          DocumentChunkRepository documentChunkRepository,
                           org.springframework.core.io.ResourceLoader resourceLoader,
-                          @Value("${app.ai.system-prompt-path:prompts/system.st}") String systemPromptPath,
-                          @Value("${agentic_example.application.rag.top-k}") int topK) {
+                          @Value("${app.ai.system-prompt-path:prompts/system.st}") String systemPromptPath) {
         this.openAIChatClient = openAIChatClient;
         this.googleAIChatClient = googleAIChatClient;
         this.instructionBuilder = instructionBuilder;
-        this.documentChunkRepository = documentChunkRepository;
-        this.topK = topK;
         this.systemPrompt = resolveSystemPrompt(resourceLoader, systemPromptPath);
     }
 
@@ -119,19 +108,13 @@ public class StdChatService implements ChatService {
 
     /**
      * Trả lời câu hỏi dựa trên context từ vector store (RAG)
+     * QuestionAnswerAdvisor (wired in GoogleChatClientConfig) sẽ tự động:
+     * - Query documentVectorStore với question
+     * - Inject retrieved context vào prompt template
      */
     public String chatWithRag(String question) {
-        List<Document> contextDocs = documentChunkRepository.findSimilarChunks(question, topK);
-
-        String context = contextDocs.stream()
-                .map(Document::getText)
-                .collect(Collectors.joining("\n---\n"));
-
-        String prompt = "Context:\n" + context + "\n\nQuestion: " + question + "\nAnswer:";
-
         return googleAIChatClient.prompt()
-                .system("Bạn là trợ lý AI, hãy trả lời dựa trên context cung cấp. Nếu không có thông tin trong context, hãy trả lời rằng bạn không biết.")
-                .user(prompt)
+                .user(question)
                 .call()
                 .content();
     }
