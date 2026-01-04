@@ -3,16 +3,15 @@ package com.nhmk.agentic_example.infrastructure.tools;
 import com.nhmk.agentic_example.application.extract.PageExtractionPort;
 import com.nhmk.agentic_example.domain.search.SearchQuery;
 import com.nhmk.agentic_example.infrastructure.googlesearch.GoogleSearchAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class GoogleSearchTool {
-    private static final Logger logger = LoggerFactory.getLogger(GoogleSearchTool.class);
 
     private final GoogleSearchAdapter adapter;
 
@@ -25,7 +24,7 @@ public class GoogleSearchTool {
 
     @Tool(description = "Tìm kiếm thông tin mới nhất trên Google")
     public String search(@ToolParam(description = "Từ khóa tìm kiếm") String query) {
-        logger.info("GoogleSearchTool search: {}", query);
+        log.info("GoogleSearchTool search: {}", query);
         var q = new SearchQuery(query, null, null, null, 5);
         var res = adapter.search(q);
         if (res.snippets() == null || res.snippets().isEmpty()) return "Không tìm thấy kết quả phù hợp trên Google.";

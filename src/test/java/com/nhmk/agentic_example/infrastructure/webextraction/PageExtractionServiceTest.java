@@ -11,7 +11,7 @@ class PageExtractionServiceTest {
 
     @Test
     void usesReadabilityExtractorWhenAvailable() {
-        PageFetcher fetcher = url -> SAMPLE_HTML;
+        PageFetcher fetcher = url -> new FetchResult(200, "text/html; charset=utf-8", SAMPLE_HTML.getBytes(java.nio.charset.StandardCharsets.UTF_8));
         ReadabilityExtractor extractor = (html, url) -> "Readability result";
         PageExtractionService service = new PageExtractionService(fetcher, extractor, 300);
 
@@ -23,7 +23,7 @@ class PageExtractionServiceTest {
 
     @Test
     void fallsBackToDomHeuristicsWhenExtractorEmpty() {
-        PageFetcher fetcher = url -> SAMPLE_HTML;
+        PageFetcher fetcher = url -> new FetchResult(200, "text/html; charset=utf-8", SAMPLE_HTML.getBytes(java.nio.charset.StandardCharsets.UTF_8));
         ReadabilityExtractor extractor = (html, url) -> "";
         PageExtractionService service = new PageExtractionService(fetcher, extractor, 300);
 
@@ -36,7 +36,7 @@ class PageExtractionServiceTest {
     @Test
     void truncatesLongContent() {
         String longContent = "<html><body><article>" + "x".repeat(500) + "</article></body></html>";
-        PageFetcher fetcher = url -> longContent;
+        PageFetcher fetcher = url -> new FetchResult(200, "text/html; charset=utf-8", longContent.getBytes(java.nio.charset.StandardCharsets.UTF_8));
         ReadabilityExtractor extractor = (html, url) -> "";
         PageExtractionService service = new PageExtractionService(fetcher, extractor, 100);
 

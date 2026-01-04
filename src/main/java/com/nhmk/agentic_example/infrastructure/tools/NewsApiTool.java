@@ -1,7 +1,6 @@
 package com.nhmk.agentic_example.infrastructure.tools;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,8 +10,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
+@Slf4j
 public class NewsApiTool {
-    private static final Logger logger = LoggerFactory.getLogger(NewsApiTool.class);
     private final WebClient webClient;
     private final String apiKey;
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -26,7 +25,7 @@ public class NewsApiTool {
     public String getLatestNews(
             @ToolParam(description = "Mã quốc gia (ví dụ: vn, us, gb, jp, kr, fr, de, ...)") String country,
             @ToolParam(description = "Từ khóa tìm kiếm (có thể để trống để lấy tin mới nhất)") String keyword) {
-        logger.info("NewsApiTool getLatestNews: country={}, keyword={}", country, keyword);
+        log.info("NewsApiTool getLatestNews: country={}, keyword={}", country, keyword);
         try {
             String url = "/top-headlines?country=" + (country == null || country.isBlank() ? "us" : country)
                     + "&pageSize=3&apiKey=" + apiKey;
@@ -37,7 +36,7 @@ public class NewsApiTool {
                 url += "&q=" + keyword;
             }
             String result = webClient.get().uri(url).retrieve().bodyToMono(String.class).block();
-            logger.info("NewsAPI raw response: {}", result);
+            log.info("NewsAPI raw response: {}", result);
             JsonNode root = MAPPER.readTree(result);
             JsonNode articles = root.path("articles");
             if (articles.isArray() && articles.size() > 0) {
@@ -54,7 +53,7 @@ public class NewsApiTool {
                 return "Không tìm thấy tin tức phù hợp.";
             }
         } catch (Exception e) {
-            logger.error("NewsApiTool error", e);
+            log.error("NewsApiTool error", e);
             return "Không thể lấy tin tức từ NewsAPI: " + e.getMessage();
         }
     }

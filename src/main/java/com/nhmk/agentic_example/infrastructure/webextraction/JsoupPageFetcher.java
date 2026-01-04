@@ -2,11 +2,10 @@ package com.nhmk.agentic_example.infrastructure.webextraction;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class JsoupPageFetcher implements PageFetcher {
-    private static final Logger logger = LoggerFactory.getLogger(JsoupPageFetcher.class);
     private final int timeoutMs;
     private final String userAgent;
 
@@ -16,18 +15,20 @@ public class JsoupPageFetcher implements PageFetcher {
     }
 
     @Override
-    public String fetchHtml(String url) {
-        if (url == null || url.isBlank()) return "";
+    public FetchResult fetch(String url) {
+        if (url == null || url.isBlank()) return new FetchResult("empty-url");
         try {
             Document doc = Jsoup.connect(url)
                     .userAgent(userAgent)
                     .timeout(timeoutMs)
                     .followRedirects(true)
+                    .ignoreContentType(true)
                     .get();
-            return doc.html();
+            String html = doc.html();
+            return new FetchResult(200, "text/html; charset=utf-8", html.getBytes(java.nio.charset.StandardCharsets.UTF_8));
         } catch (Exception e) {
-            logger.warn("JsoupPageFetcher.fetchHtml failed for {}", url, e);
-            return "";
+            log.error("JsoupPageFetcher.fetch failed for {}", url, e);
+            return new FetchResult("fetch-error");
         }
     }
 }

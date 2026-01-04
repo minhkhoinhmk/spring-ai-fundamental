@@ -8,8 +8,7 @@ import com.nhmk.agentic_example.domain.extract.DomainFetchResult;
 import com.nhmk.agentic_example.domain.search.SearchQuery;
 import com.nhmk.agentic_example.domain.search.SearchResult;
 import com.nhmk.agentic_example.infrastructure.cache.SimpleCache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,8 +18,8 @@ import java.util.Comparator;
 import java.util.List;
 
 @Component
+@Slf4j
 public class GoogleSearchAdapter implements SearchPort {
-    private static final Logger logger = LoggerFactory.getLogger(GoogleSearchAdapter.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private final WebClient webClient;
     private final String apiKey;
@@ -68,7 +67,7 @@ public class GoogleSearchAdapter implements SearchPort {
                         DomainFetchResult fr = pageExtractionPort.extractForSummary(link);
                         if (fr != null) pageExcerpt = fr.getExtractedText();
                     } catch (Exception ex) {
-                        logger.debug("Failed to extract page {}: {}", link, ex.toString());
+                        log.info("Failed to extract page {}: {}", link, ex.toString());
                     }
                     list.add(new ResultItem(title, snippet, link, pageExcerpt));
                 }
@@ -109,7 +108,7 @@ public class GoogleSearchAdapter implements SearchPort {
             cache.put(cacheKey, out);
             return out;
         } catch (Exception e) {
-            logger.error("Google search error", e);
+            log.error("Google search error", e);
             return new SearchResult(q.q(), List.of("Không thể tìm kiếm Google: " + e.getMessage()));
         }
     }

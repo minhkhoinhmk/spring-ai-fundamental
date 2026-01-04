@@ -1,7 +1,6 @@
 package com.nhmk.agentic_example.infrastructure.advisor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClientRequest;
 import org.springframework.ai.chat.client.ChatClientResponse;
 import org.springframework.ai.chat.client.advisor.api.CallAdvisor;
@@ -21,9 +20,8 @@ import reactor.core.publisher.Flux;
  * <p>
  * Implement CallAdvisor và StreamAdvisor để có thể intercept cả regular call và streaming call.
  */
+@Slf4j
 public class TokenUsageAdvisor implements CallAdvisor, StreamAdvisor {
-
-    private static final Logger logger = LoggerFactory.getLogger(TokenUsageAdvisor.class);
     private static final String ADVISOR_NAME = "TokenUsageAdvisor";
     private final int order;
 
@@ -76,23 +74,23 @@ public class TokenUsageAdvisor implements CallAdvisor, StreamAdvisor {
         // Gọi next advisor trong chain và log response chunks
         return chain.nextStream(request)
                 .doOnNext(this::logResponseInfo)
-                .doOnError(error -> logger.error("Error during streaming: {}", error.getMessage()));
+                .doOnError(error -> log.error("Error during streaming: {}", error.getMessage()));
     }
 
     /**
      * Log thông tin về request trước khi gửi đến AI model.
      */
     private void logRequestInfo(ChatClientRequest request) {
-        logger.info("=== AI Request ===");
+        log.info("=== AI Request ===");
 
         // Log prompt information
         if (request.prompt() != null) {
-            logger.info("Prompt: {}", truncate(request.prompt().toString(), 150));
+            log.info("Prompt: {}", truncate(request.prompt().toString(), 150));
         }
 
         // Log context params nếu có
         if (request.context() != null && !request.context().isEmpty()) {
-            logger.debug("Context params: {}", request.context());
+            log.info("Context params: {}", request.context());
         }
     }
 
@@ -102,26 +100,26 @@ public class TokenUsageAdvisor implements CallAdvisor, StreamAdvisor {
     private void logResponseInfo(ChatClientResponse clientResponse) {
         ChatResponse response = clientResponse.chatResponse();
 
-        logger.info("=== AI Response ===");
+        log.info("=== AI Response ===");
 
         // Log metadata nếu có
         if (response.getMetadata() != null) {
             var usage = response.getMetadata().getUsage();
 
-            if (usage != null) {
-                // Log chi tiết token usage - đây là phần quan trọng nhất
-                logger.info("Token Usage:");
-                logger.info("  - Prompt Tokens (Input): {}", usage.getPromptTokens());
-                logger.info("  - Completion Tokens (Output): {}", usage.getCompletionTokens());
-                logger.info("  - Total Tokens: {}", usage.getTotalTokens());
-            } else {
-                logger.warn("Token usage information not available in response metadata");
-            }
+                if (usage != null) {
+                    // Log chi tiết token usage - đây là phần quan trọng nhất
+                    log.info("Token Usage:");
+                    log.info("  - Prompt Tokens (Input): {}", usage.getPromptTokens());
+                    log.info("  - Completion Tokens (Output): {}", usage.getCompletionTokens());
+                    log.info("  - Total Tokens: {}", usage.getTotalTokens());
+                } else {
+                    log.info("Token usage information not available in response metadata");
+                }
 
             // Log model information
             String model = response.getMetadata().getModel();
             if (model != null) {
-                logger.info("Model used: {}", model);
+                log.info("Model used: {}", model);
             }
         }
 
@@ -130,8 +128,8 @@ public class TokenUsageAdvisor implements CallAdvisor, StreamAdvisor {
                 && response.getResult().getOutput() != null
                 ? response.getResult().getOutput().getText()
                 : "N/A";
-        logger.info("Response: {}", truncate(content, 100));
-        logger.info("==================");
+        log.info("Response: {}", truncate(content, 100));
+        log.info("==================");
     }
 
     /**

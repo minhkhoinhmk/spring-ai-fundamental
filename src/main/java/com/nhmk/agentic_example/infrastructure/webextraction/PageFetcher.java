@@ -1,8 +1,10 @@
 package com.nhmk.agentic_example.infrastructure.webextraction;
 
 /**
- * Fetch raw HTML for the given URL. Returns empty string on failure.
+ * FetchResult-aware PageFetcher. Implementations should return a FetchResult
+ * containing status, content-type and body (or an error) so callers can
+ * decide how to parse the response (HTML vs PDF vs other).
  */
 public interface PageFetcher {
-    String fetchHtml(String url);
+    FetchResult fetch(String url);
 }
