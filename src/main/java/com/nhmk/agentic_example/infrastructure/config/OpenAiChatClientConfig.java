@@ -3,7 +3,7 @@ package com.nhmk.agentic_example.infrastructure.config;
 import com.nhmk.agentic_example.infrastructure.advisor.TokenUsageAdvisor;
 import com.nhmk.agentic_example.infrastructure.tools.CalculatorTool;
 import com.nhmk.agentic_example.infrastructure.tools.ExchangeRateTool;
-import com.nhmk.agentic_example.infrastructure.tools.GoogleSearchTool;
+import com.nhmk.agentic_example.infrastructure.tools.TavilySearchTool;
 import com.nhmk.agentic_example.infrastructure.tools.NewsApiTool;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.vectorstore.VectorStoreChatMemoryAdvisor;
@@ -23,7 +23,7 @@ public class OpenAiChatClientConfig {
     public ChatClient openAiChatClient(@Qualifier("openAiChatModel") ChatModel openAiChatModel,
                                        @org.springframework.beans.factory.annotation.Qualifier("chatHistoryVectorStore") PgVectorStore vectorStore,
                                        CalculatorTool calculatorTool,
-                                       GoogleSearchTool googleSearchTool,
+                                       TavilySearchTool tavilySearchTool,
                                        NewsApiTool newsApiTool,
                                        ExchangeRateTool exchangeRateTool) {
         var vectorMemoryAdvisor = VectorStoreChatMemoryAdvisor.builder(vectorStore)
@@ -31,7 +31,7 @@ public class OpenAiChatClientConfig {
         var tokenUsageAdvisor = new TokenUsageAdvisor();
 
         return ChatClient.builder(openAiChatModel)
-                .defaultTools(calculatorTool, googleSearchTool, newsApiTool, exchangeRateTool)
+                .defaultTools(calculatorTool, tavilySearchTool, newsApiTool, exchangeRateTool)
                 .defaultAdvisors(vectorMemoryAdvisor, tokenUsageAdvisor)
                 .build();
     }
